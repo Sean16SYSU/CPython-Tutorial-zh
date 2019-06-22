@@ -217,3 +217,40 @@ setup(
 >>> stat_.std(a)
 1.4142135623730951
 ```
+
+#### 速度对比
+
+* 均值：提高一倍
+* std：提高一倍
+
+### Count项目
+
+统计数量，返回字典，在代码完全一样的前提下，速度仍然提高了一倍。
+
+
+* count.pyx
+
+```py
+def count(list arr):
+    d = {}
+    for n in arr:
+        if n not in d:
+            d[n] = 1
+        else:
+            d[n] += 1
+    return d
+```
+
+* setup.py
+
+```py
+from distutils.core import setup
+from Cython.Build import cythonize
+
+setup(
+    ext_modules = cythonize("count.pyx")
+)
+```
+
+
+
